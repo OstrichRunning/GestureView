@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol CRGestureActionViewProtocol <NSObject>
 
 - (BOOL)actionWith:(UIGestureRecognizer * _Nullable)gestureRecognizer; /// gestureRecognizer nil 说明不是手势导致的动作
+- (CGFloat)maxScale;
+- (CGFloat)minScale;
 
 @end
 

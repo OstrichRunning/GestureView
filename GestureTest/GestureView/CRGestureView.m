@@ -16,6 +16,20 @@
 
 @implementation CRGestureView
 
+/// 获取缩放大小
++ (CGFloat)xscaleWith:(UIView *)actionView {
+    CGAffineTransform t = actionView.transform;
+    return sqrt(t.a * t.a + t.c * t.c);
+}
+
++ (CGFloat)yscaleWith:(UIView *)actionView {
+    CGAffineTransform t = actionView.transform;
+    return sqrt(t.b * t.b + t.d * t.d);
+}
+/// x == y
++ (CGFloat)scaleWith:(UIView *)actionView {
+    return ([self yscaleWith:actionView] + [self xscaleWith:actionView]) / 2.0;
+}
 /// 设置anchorPoint
 + (void)anchorPoint:(CGPoint)anchorPoint with:(UIView *)view {
     CGPoint newPoint = CGPointMake(view.bounds.size.width * anchorPoint.x,
@@ -89,12 +103,16 @@
     if (![_actionView actionWith:gestureRecognizer]) return;
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
     } else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
-        CGFloat scale = [[_actionView.layer valueForKeyPath:@"transform.scale"] floatValue];
-        _actionView.transform = CGAffineTransformScale(_actionView.transform, 1.0 + gestureRecognizer.scale - scale, 1.0 + gestureRecognizer.scale - scale);
+        /// 使用layer transform.sacle不准确
+        CGFloat scale = [CRGestureView scaleWith:_actionView];
+        CGFloat changeScale = 1.0 + gestureRecognizer.scale - scale;
+        if (scale * changeScale < [_actionView minScale]) changeScale = [_actionView minScale] / scale;
+        if (scale * changeScale > [_actionView maxScale]) changeScale = [_actionView maxScale] / scale;
+        _actionView.transform = CGAffineTransformScale(_actionView.transform, changeScale, changeScale);
     } else {
         _actionView = nil;
     }
-    gestureRecognizer.scale = [[_actionView.layer valueForKeyPath:@"transform.scale"] floatValue]; /// 同步scale
+    gestureRecognizer.scale = [CRGestureView scaleWith:_actionView];
 }
 /// 旋转
 - (void)rotationGesture:(UIRotationGestureRecognizer *)gestureRecognizer {
@@ -156,6 +174,7 @@
     NSArray *subviews = self.subviews;
     for (NSInteger index = subviews.count - 1; index >= 0; --index) {
         UIView<CRGestureActionViewProtocol> *actionView = [subviews objectAtIndex:index];
+        if (![actionView actionWith:gestureRecognizer]) continue; /// 手势状态 UIGestureRecognizerStatePossible 不工作 则跳过
         if ([CRGestureView containsPoint:actionPoint with:actionView]) {
             _actionView = actionView;
             UIView<CRGestureActionViewProtocol> *lastActionView = subviews.lastObject;

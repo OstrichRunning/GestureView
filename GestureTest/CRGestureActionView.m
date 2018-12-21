@@ -14,6 +14,13 @@
     return YES;
 }
 
+- (CGFloat)maxScale {
+    return 5.0;
+}
+- (CGFloat)minScale {
+    return 0.5;
+}
+
 - (UIView *)copyView {
     CRGestureActionView *actionView = [[CRGestureActionView alloc] initWithFrame:CGRectMake(0.0, 0.0, 100.0, 60.0)];
     
