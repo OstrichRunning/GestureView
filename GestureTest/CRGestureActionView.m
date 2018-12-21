@@ -11,7 +11,7 @@
 @implementation CRGestureActionView
 
 - (void)actionWith:(UIGestureRecognizer * _Nullable)gestureRecognizer {
-    
+    return YES;
 }
 
 - (UIView *)copyView {

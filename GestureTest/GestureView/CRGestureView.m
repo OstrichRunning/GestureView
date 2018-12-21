@@ -85,7 +85,7 @@
 #pragma mark - GestureRecognizers
 /// 缩放
 - (void)pinchGesture:(UIPinchGestureRecognizer *)gestureRecognizer {
-    [_actionView actionWith:gestureRecognizer];
+    if (![_actionView actionWith:gestureRecognizer]) return;
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
     } else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
         CGFloat scale = [[_actionView.layer valueForKeyPath:@"transform.scale"] floatValue];
@@ -97,7 +97,7 @@
 }
 /// 旋转
 - (void)rotationGesture:(UIRotationGestureRecognizer *)gestureRecognizer {
-    [_actionView actionWith:gestureRecognizer];
+    if (![_actionView actionWith:gestureRecognizer]) return;
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
         gestureRecognizer.rotation = [[_actionView.layer valueForKeyPath:@"transform.rotation"] floatValue];
     } else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
@@ -109,12 +109,12 @@
 }
 /// 点击
 - (void)tapWith:(UITapGestureRecognizer *)gestureRecognizer {
-    [_actionView actionWith:gestureRecognizer];
+    if (![_actionView actionWith:gestureRecognizer]) return;
     _actionView = nil;
 }
 /// 移动
 - (void)panWith:(UIPanGestureRecognizer *)gestureRecognizer {
-    [_actionView actionWith:gestureRecognizer];
+    if (![_actionView actionWith:gestureRecognizer]) return;
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
     } else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
         CGPoint changePoint = [gestureRecognizer translationInView:gestureRecognizer.view];
