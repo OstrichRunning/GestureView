@@ -48,11 +48,12 @@
     if (point.x == centerPoint.x) {
         if (point.y >= centerPoint.y) rotationPointToCenter = M_PI_2 * 3;
     } else {
-        if (point.y >= centerPoint.y && point.x >= centerPoint.x) { /// 第一象限
+        /// 象限为逆时针
+        if (point.y >= centerPoint.y && point.x >= centerPoint.x) { /// 第一逆象限
             rotationPointToCenter = atan((point.y - centerPoint.y) / (point.x - centerPoint.x));
-        } else if (point.y >= centerPoint.y && point.x < centerPoint.x) { /// 第二象限
+        } else if (point.y >= centerPoint.y && point.x < centerPoint.x) { /// 第二逆象限
             rotationPointToCenter = M_PI + atan((point.y - centerPoint.y) / (point.x - centerPoint.x));
-        } else if (point.y < centerPoint.y && point.x < centerPoint.x) { /// 第三象限
+        } else if (point.y < centerPoint.y && point.x < centerPoint.x) { /// 第三逆象限
             rotationPointToCenter = M_PI + atan((point.y - centerPoint.y) / (point.x - centerPoint.x));
         } else {
             rotationPointToCenter = 2 * M_PI + atan((point.y - centerPoint.y) / (point.x - centerPoint.x));
