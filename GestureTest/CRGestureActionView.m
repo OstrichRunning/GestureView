@@ -10,7 +10,7 @@
 
 @implementation CRGestureActionView
 
-- (void)actionWith:(UIGestureRecognizer * _Nullable)gestureRecognizer {
+- (BOOL)actionWith:(UIGestureRecognizer * _Nullable)gestureRecognizer {
     return YES;
 }
 
