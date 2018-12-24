@@ -10,10 +10,15 @@
 
 @implementation CRGestureActionView
 
-- (BOOL)actionWith:(UIGestureRecognizer * _Nullable)gestureRecognizer {
-    return YES;
+#pragma mark - CRGestureActionViewProtocol
+- (BOOL)canAction {
+    return self.userInteractionEnabled;
 }
-
+- (void)actionWith:(UIGestureRecognizer * _Nullable)gestureRecognizer {
+    if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) {
+        NSLog(@"tap action");
+    }
+}
 - (CGFloat)maxScale {
     return 5.0;
 }

@@ -17,6 +17,7 @@
 		4415592421C892E500B71450 /* GestureTestUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4415592321C892E500B71450 /* GestureTestUITests.m */; };
 		4415597C21CCEB3C00B71450 /* CRGestureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4415597B21CCEB3C00B71450 /* CRGestureView.m */; };
 		4487B0A221CCF36D00D1DF06 /* CRGestureActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4487B0A121CCF36D00D1DF06 /* CRGestureActionView.m */; };
+		4487B0A921D0901E00D1DF06 /* UIView+CRGestureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4487B0A821D0901E00D1DF06 /* UIView+CRGestureView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,8 @@
 		4415597B21CCEB3C00B71450 /* CRGestureView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CRGestureView.m; sourceTree = "<group>"; };
 		4487B0A021CCF36D00D1DF06 /* CRGestureActionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CRGestureActionView.h; sourceTree = "<group>"; };
 		4487B0A121CCF36D00D1DF06 /* CRGestureActionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CRGestureActionView.m; sourceTree = "<group>"; };
+		4487B0A721D0901E00D1DF06 /* UIView+CRGestureView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+CRGestureView.h"; sourceTree = "<group>"; };
+		4487B0A821D0901E00D1DF06 /* UIView+CRGestureView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+CRGestureView.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +147,8 @@
 		4415597921CCEB1500B71450 /* GestureView */ = {
 			isa = PBXGroup;
 			children = (
+				4487B0A721D0901E00D1DF06 /* UIView+CRGestureView.h */,
+				4487B0A821D0901E00D1DF06 /* UIView+CRGestureView.m */,
 				4415597A21CCEB3C00B71450 /* CRGestureView.h */,
 				4415597B21CCEB3C00B71450 /* CRGestureView.m */,
 			);
@@ -283,6 +288,7 @@
 				4415590421C892E300B71450 /* ViewController.m in Sources */,
 				4415590F21C892E500B71450 /* main.m in Sources */,
 				4487B0A221CCF36D00D1DF06 /* CRGestureActionView.m in Sources */,
+				4487B0A921D0901E00D1DF06 /* UIView+CRGestureView.m in Sources */,
 				4415597C21CCEB3C00B71450 /* CRGestureView.m in Sources */,
 				4415590121C892E300B71450 /* AppDelegate.m in Sources */,
 			);
