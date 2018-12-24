@@ -18,6 +18,9 @@
     if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) {
         NSLog(@"tap action");
     }
+    if (gestureRecognizer == nil) {
+        NSLog(@"其它兄弟视图 成为 action 视图");
+    }
 }
 - (CGFloat)maxScale {
     return 5.0;
