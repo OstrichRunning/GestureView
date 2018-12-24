@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (CGFloat)yScale;
 /// 设置anchorPoint
 - (void)anchorWith:(CGPoint)anchorPoint;
+/// 缩放旋转前真实size
+- (CGSize)realSize;
 /// 判断是否包含点
 - (BOOL)containsPoint:(CGPoint)point;
 
