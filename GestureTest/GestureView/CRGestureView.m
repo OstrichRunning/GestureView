@@ -23,30 +23,13 @@
     return self;
 }
 
-- (void)addSubview:(UIView *)view {
-    if ([view conformsToProtocol:@protocol(CRGestureActionViewProtocol)]) {
-        [super addSubview:view];
-    }
-}
-
 #pragma mark - GestureRecognizers
 /// 缩放
 - (void)pinchGesture:(UIPinchGestureRecognizer *)gestureRecognizer {
     [_actionView actionWith:gestureRecognizer];
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
     } else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
-        /// 使用layer transform.sacle不准确
-        CGFloat xScale = [_actionView xScale];
-        CGFloat yScale = [_actionView yScale];
-        CGFloat changeXScale = gestureRecognizer.scale;
-        CGFloat changeYScale = gestureRecognizer.scale;
-        /// x
-        if (xScale * changeXScale < [_actionView minScale]) changeXScale = [_actionView minScale] / xScale;
-        if (xScale * changeXScale > [_actionView maxScale]) changeXScale = [_actionView maxScale] / xScale;
-        /// y
-        if (yScale * changeYScale < [_actionView minScale]) changeYScale = [_actionView minScale] / yScale;
-        if (yScale * changeYScale > [_actionView maxScale]) changeYScale = [_actionView maxScale] / yScale;
-        _actionView.transform = CGAffineTransformScale(_actionView.transform, changeXScale, changeYScale);
+        _actionView.transform = CGAffineTransformScale(_actionView.transform, gestureRecognizer.scale, gestureRecognizer.scale);
     } else {
         _actionView = nil;
     }
@@ -58,11 +41,11 @@
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
         gestureRecognizer.rotation = [[_actionView.layer valueForKeyPath:@"transform.rotation"] floatValue];
     } else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
-        CGFloat rotation = [[_actionView.layer valueForKeyPath:@"transform.rotation"] floatValue];
-        _actionView.transform = CGAffineTransformRotate(_actionView.transform, gestureRecognizer.rotation - rotation);
+        _actionView.transform = CGAffineTransformRotate(_actionView.transform, gestureRecognizer.rotation);
     } else {
         _actionView = nil;
     }
+    gestureRecognizer.rotation = 0.0; /// 恢复rotation初始值
 }
 /// 点击
 - (void)tapWith:(UITapGestureRecognizer *)gestureRecognizer {
@@ -79,7 +62,7 @@
     } else {
         _actionView = nil;
     }
-    [gestureRecognizer setTranslation:CGPointZero inView:gestureRecognizer.view]; /// 调整偏移量
+    [gestureRecognizer setTranslation:CGPointZero inView:gestureRecognizer.view]; /// 恢复translation初始值
 }
 /// 手势
 - (void)configGestures {
@@ -110,9 +93,9 @@
     NSArray *subviews = self.subviews;
     for (NSInteger index = subviews.count - 1; index >= 0; --index) {
         UIView<CRGestureActionViewProtocol> *actionView = [subviews objectAtIndex:index];
-        if (![actionView canAction]) continue; /// 视图不响应事件 跳过
+        if (![actionView conformsToProtocol:@protocol(CRGestureActionViewProtocol)] || ![actionView canBeAction]) continue; /// 视图未实现协议 跳过
         if (![actionView containsPoint:actionPoint]) continue; /// 视图不适合响应
-        self.actionView = actionView;
+        [self setActionView:actionView with:gestureRecognizer];
         return YES;
     }
     return NO;
@@ -124,13 +107,10 @@
     return  YES;
 }
 
-#pragma - mark Sets
-- (void)setActionView:(UIView<CRGestureActionViewProtocol> *)actionView {
+#pragma mark - Set new actionView
+- (void)setActionView:(UIView<CRGestureActionViewProtocol> *)actionView with:(UIGestureRecognizer *)gestureRecognizer {
     _actionView = actionView;
-    UIView<CRGestureActionViewProtocol> *lastActionView = self.subviews.lastObject;
-    if (lastActionView == _actionView) return;
-    [lastActionView actionWith:nil];
-    if (actionView) [self bringSubviewToFront:actionView];
+    [_actionView actionWith:gestureRecognizer];
 }
 
 @end

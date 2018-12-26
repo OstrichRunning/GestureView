@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (CRGestureView)
 
-/// 获取缩放大小
+/// 获取缩放大小 (使用layer transform.sacle不准确)
 - (CGFloat)xScale;
 - (CGFloat)yScale;
 /// 设置anchorPoint

@@ -12,10 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol CRGestureActionViewProtocol <NSObject>
 
-- (BOOL)canAction; /// NO 则不会激活手势 事件将延父视图传递
-- (void)actionWith:(UIGestureRecognizer * _Nullable)gestureRecognizer; /// gestureRecognizer nil 说明不是手势导致的动作
-- (CGFloat)maxScale;
-- (CGFloat)minScale;
+- (BOOL)canBeAction;
+- (void)actionWith:(UIGestureRecognizer * _Nullable)gestureRecognizer;
 
 @end
 
