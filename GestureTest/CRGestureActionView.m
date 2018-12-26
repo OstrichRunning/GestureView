@@ -48,10 +48,10 @@
         case UIGestureRecognizerStatePossible: {
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(borderHidden) object:nil];
             CRGestureActionView *lastView = self.superview.subviews.lastObject;
+            /// 还原旧视图状态
             if (lastView != self) lastView.layer.borderWidth = 0.0;
             [self.superview bringSubviewToFront:self];
             if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) return; /// 点击手势 修改borderWidth在后面执行 为了得到点击第二次才变大的效果
-            /// 还原旧视图状态
             self.layer.borderWidth = 3.0;
         }
             break;
