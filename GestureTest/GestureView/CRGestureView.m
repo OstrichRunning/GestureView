@@ -39,7 +39,6 @@
 - (void)rotationGesture:(UIRotationGestureRecognizer *)gestureRecognizer {
     [_actionView actionWith:gestureRecognizer];
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        gestureRecognizer.rotation = [[_actionView.layer valueForKeyPath:@"transform.rotation"] floatValue];
     } else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
         _actionView.transform = CGAffineTransformRotate(_actionView.transform, gestureRecognizer.rotation);
     } else {
