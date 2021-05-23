@@ -45,9 +45,17 @@
     return CGSizeMake(rotationW, rotationH);
 }
 - (CGSize)realSize {
+    /*
     CGSize rotationSize = [self rotationSize];
     CGSize realSize = CGSizeMake(rotationSize.width / [self xScale], rotationSize.height / [self yScale]);
     return realSize;
+    */
+    
+    /*
+     transform只会修改frame 不会改变bounds
+     修改frame 只会修改bounds size
+    */
+    return self.bounds.size;
 }
 - (BOOL)containsPoint:(CGPoint)point {
     CGSize rotationSize = [self rotationSize];
