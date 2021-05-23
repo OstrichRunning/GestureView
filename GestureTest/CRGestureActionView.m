@@ -78,7 +78,7 @@
             if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) { /// UITapGestureRecognizer UIGestureRecognizerStateEnded
                 if (self.layer.borderWidth) { /// 以 borderWidth 为标记， 在激活状态下 再次点击 则变化大小
                     CGFloat tmp = _childView.frame.origin.x + 5.0;
-                    CGSize realSize = [self realSize]; /// realSize 可以在当前视图 增加属性来 记忆 减少计算
+                    CGSize realSize = [self realSize];
                     /// 设置 修改 建议使用 布局 不使用约束 测试iOS10版本可能会出现布局问题
                     /// 子类frame可以直接修改 也可以放在 设置 CGAffineTransformIdentity 之后
                     _childView.frame = CGRectMake(tmp, tmp, realSize.width - tmp * 2.0, realSize.height - tmp * 2.0); /// 子视图的改变 可以 理解为 是在父视图没有任何形变前 修改
